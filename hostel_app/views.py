@@ -1,9 +1,125 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
+from hostel_app.forms import RegistrationForm, studentRegistrationForm, parentRegistrationForm
+from hostel_app.models import User_Student, User_Parent, Register
 
 
 # Create your views here.
 def new(request):
     return render(request, "index.html")
 
-def admn(request):
-    return render(request, "index_admin.html")
+
+def admin_view(request):
+    return render(request, "admin/index_admin.html")
+
+
+# registration_for_student
+def stud_register(request):
+    reg_form = RegistrationForm()
+    stud_reg_form = studentRegistrationForm()
+    if request.method == "POST":
+        reg_form = RegistrationForm(request.POST)
+        stud_reg_form = studentRegistrationForm(request.POST, request.FILES)
+        if reg_form.is_valid() and stud_reg_form.is_valid():
+            stud_reg = reg_form.save(commit=False)
+            stud_reg.is_student = True
+            stud_reg.save()
+            reg = stud_reg_form.save(commit=False)
+            reg.user = stud_reg
+            reg.save()
+    return render(request, "student/student_RegistrationForm.html", {'reg_form': reg_form, 'stud_form': stud_reg_form})
+
+
+# registration_for_parent
+def parent_register(request):
+    reg_form = RegistrationForm()
+    parent_reg_form = parentRegistrationForm()
+    if request.method == 'POST':
+        reg_form = RegistrationForm(request.POST)
+        parent_reg_form = parentRegistrationForm(request.POST)
+        if reg_form.is_valid() and parent_reg_form.is_valid():
+            parent_reg = reg_form.save(commit=False)
+            parent_reg.is_parent = True
+            parent_reg.save()
+            reg = parent_reg_form.save(commit=False)
+            reg.user = parent_reg
+            reg.save()
+    return render(request, "parent/parent_RegistrationForm.html",
+                  {'reg_form': reg_form, 'parent_form': parent_reg_form})
+
+
+# login_view
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('uname')
+        password = request.POST.get('pass')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.is_staff:
+                return redirect('base')
+            elif user.is_parent:
+                return redirect('parent_login')
+            elif user.is_student:
+                return redirect('student_login')
+        else:
+            messages.info(request, 'Invalid Credentials')
+    return render(request, "loginForm.html")
+
+
+# student_login
+def student_login(request):
+    return render(request, "student/student_login.html")
+
+
+# parent_login
+def parent_login(request):
+    return render(request, "parent/parent_login.html")
+
+
+# to_view_student_list_by_admin
+def viewStudentList(request):
+    data = User_Student.objects.all()
+    return render(request, "admin/admins_viewStudList.html", {'data': data})
+
+
+# to_view_parent_list_by_admin
+def viewParentList(request):
+    data = User_Parent.objects.all()
+    return render(request, "admin/admins_viewParentList.html", {'data': data})
+
+
+# to_update_student_details_by_admin
+def updateStudentDetails(request, id):
+    stud_data = User_Student.objects.get(id=id)
+    stud_reg_form = studentRegistrationForm(instance=stud_data)
+    if request.method == "POST":
+        stud_reg_form1 = studentRegistrationForm(request.POST,request.FILES, instance=stud_data)
+        if stud_reg_form1.is_valid():
+            stud_reg_form1.save()
+            return redirect('viewStudList')
+    return render(request, "admin/updateStudentDetail.html", {'stud_form': stud_reg_form})
+
+
+# to_delete_student_details_by_admin
+def deleteStudent(request, id):
+    if request.method == 'POST':
+        delt = User_Student.objects.get(id=id)
+        user_detail=delt.user
+        delt.delete()
+        user_detail.delete()
+        return redirect("viewStudList")
+    return render(request, "admin/admins_viewStudList.html")
+
+
+# to_delete_parent_details_by_admin
+def deleteParent(request, id):
+    if request.method == 'POST':
+        delt = User_Parent.objects.get(id=id)
+        user_detail = delt.user
+        delt.delete()
+        user_detail.delete()
+        return redirect("viewParentList")
+    return render(request, "admin/admins_viewParentList.html")

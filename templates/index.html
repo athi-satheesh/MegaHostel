@@ -26,7 +26,7 @@
 			<!-- Logo -->
 			<div class="logo_container">
 				<div class="logo">
-					<img src=" {% static 'images/logo.png' %} " alt="">
+					<img src=" {% static 'images/icon.jpg' %} " alt="" style="height:35px; width:35px">
 					<span>Mega Hostel</span>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 		</div>
 		<div class="header_side d-flex flex-row justify-content-center align-items-center">
 			<img src=" {% static 'images/phone-call.svg' %} " alt="">
-			<span>+43 4566 7788 2457</span>
+			<span>+91 99466 21199</span>
 		</div>
 
 		<!-- Hamburger -->
@@ -103,7 +103,7 @@
 					<div class="hero_slide_background" style="background-image:url( {% static 'images/slider_background.jpg' %} )"></div>
 					<div class="hero_slide_container d-flex flex-column align-items-center justify-content-center">
 						<div class="hero_slide_content text-center">
-							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Get your <span>stay</span> secured.</h1>
+							<h1 data-animation-in="fadeInUp" data-animation-out="animate-out fadeOut">Your <span>Second</span> Home.</h1>
 						</div>
 					</div>
 				</div>
@@ -111,37 +111,44 @@
 		</div>
 
 	</div>
-<center>
 	<div class="hero_boxes">
 		<div class="hero_boxes_inner">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-6 hero_box_col">
+					<div class="col-lg-4 hero_box_col">
 						<div class="hero_box d-flex flex-row align-items-center">
 							<img src=" {% static 'images/earth-globe.svg' %} " class="svg" alt="">
-							<div class="hero_box_content">
-								<h2 class="hero_box_title"> LOGIN </h2>
-								<a href=" {% static 'courses.html' %} " class="hero_box_link"  style=" text-transform: capitalize;">Existing user? Then login.</a>
+							<a href="{% url 'login1' %}"><div class="hero_box_content">
+								<h2 class="hero_box_title"> LOGIN</h2>
+								<a href=" {% url 'login1' %} " class="hero_box_link"  style=" text-transform: capitalize;">Existing user? Then login.</a>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-lg-6 hero_box_col">
+					<div class="col-lg-4 hero_box_col">
 						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
 							<img src=" {% static 'images/professor.svg' %} " class="svg" alt="">
-							<div class="hero_box_content">
-								<h2 class="hero_box_title"> REGISTER </h2>
-								<a href=" {% static 'teachers.html' %} " class="hero_box_link" style=" text-transform: capitalize;">New Here? Then Register.</a>
-							</div>
+							<a href="{% url 'stud_register' %}"><div class="hero_box_content"><div class="hero_box_content">
+								<h2 class="hero_box_title" >SIGN UP</h2>
+								<a href=" {% url 'stud_register' %} " class="hero_box_link" style=" text-transform: none;">As Student? Register Here.</a>
+							</div> </div></a>
 						</div>
 					</div>
-
+					<div class="col-lg-4 hero_box_col">
+						<div class="hero_box d-flex flex-row align-items-center justify-content-start">
+							<img src=" {% static 'images/professor.svg' %} " class="svg" alt="">
+							<a href="{% url 'parent_register' %}"><div class="hero_box_content">
+								<h2 class="hero_box_title">SIGN UP</h2>
+								<a href=" {% url 'parent_register' %} " class="hero_box_link" style=" text-transform: none;">As Parent? Register Here.</a>
+							</div></a>
+						</div>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
 	</div>
 		</div>
-	</center>
 	<!-- Footer -->
 
 	<footer class="footer">
@@ -161,12 +168,12 @@
 						<!-- Logo -->
 						<div class="logo_container">
 							<div class="logo">
-								<img src=" {% static 'images/logo.png' %} " alt="">
+<!--								<img src=" {% static 'images/icon.jpg' %} " alt="" style="height:30px; width:30px">-->
 								<span>Mega Hostel</span>
 							</div>
 						</div>
 
-						<p class="footer_about_text">In aliquam, augue a gravida rutrum, ante nisl fermentum nulla, vitae tempor nisl ligula vel nunc. Proin quis mi malesuada, finibus tortor fermentum, tempor lacus.</p>
+						<p class="footer_about_text">A lower-priced inn of sorts that offers basic, shared accommodations typically called a home away from home.</p>
 
 					</div>
 
@@ -206,18 +213,18 @@
 									<div class="footer_contact_icon">
 										<img src=" {% static 'images/placeholder.svg' %} " alt="https://www.flaticon.com/authors/lucy-g">
 									</div>
-									Blvd Libertad, 34 m05200 Arévalo
+									NIT Calicut, Mukkam.
 								</li>
 								<li class="footer_contact_item">
 									<div class="footer_contact_icon">
 										<img src=" {% static 'images/smartphone.svg' %} " alt="https://www.flaticon.com/authors/lucy-g">
 									</div>
-									0034 37483 2445 322
+									+91 99466 21199
 								</li>
 								<li class="footer_contact_item">
 									<div class="footer_contact_icon">
 										<img src=" {% static 'images/envelope.svg' %} " alt="https://www.flaticon.com/authors/lucy-g">
-									</div>hello@company.com
+									</div>megahostel@yahoo.com
 								</li>
 							</ul>
 						</div>
@@ -231,8 +238,8 @@
 			<div class="footer_bar d-flex flex-column flex-sm-row align-items-center">
 				<div class="footer_copyright">
 					<span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script>.All rights reserved by Mega Hostel.
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
 				</div>
 				<div class="footer_social ml-sm-auto">
 					<ul class="menu_social">

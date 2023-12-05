@@ -37,8 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hostel_app'
+    'hostel_app',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
+
+AUTH_USER_MODEL = 'hostel_app.Register'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "boostrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

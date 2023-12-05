@@ -1,0 +1,50 @@
+{% extends 'admin/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+<h4 style="text-align: center">LIST OF STUDENTS</h4>
+
+<table class="table table-bordered table-sm " style="text-align: center">
+    <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Reg-No</th>
+        <th>Department</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Permanent Address</th>
+        <th>Contact Number</th>
+        <th>Email</th>
+        <th>Emergency Contact Number</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+    </tr>
+    {% for x in data %}
+    <tr>
+        <td><img src="{{ x.photo.url }}"/></td>
+        <td>{{ x.name }}</td>
+        <td>{{ x.reg_no }}</td>
+        <td>{{x.department}}</td>
+        <td>{{x.dob}}</td>
+        <td>{{x.gender}}</td>
+        <td>{{x.address}}</td>
+        <td>{{x.contact_number}}</td>
+        <td>{{x.email}}</td>
+        <td>{{x.emergency_contact_number}}</td>
+
+        <td> <form method="POST" action="{% url 'updateStudentDetail' x.id %}" >
+                {% csrf_token %}
+                {{ stud_form|crispy }}
+             <input type="submit" class="btn btn-outline-primary" value="Update"/>
+            </form>
+         </td>
+         <td><form action="{% url 'deleleStudent' x.id %}" method="POST" class="d-inline-block" >
+            {% csrf_token %}
+            <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+        </form> </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
