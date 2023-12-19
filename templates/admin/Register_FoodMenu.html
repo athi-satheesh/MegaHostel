@@ -1,0 +1,21 @@
+{% extends 'admin/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h4 style="text-align: center">WEEKLY FOOD MENU</h4>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+<form method="POST">
+                {% csrf_token %}
+                {{food_form|crispy}}
+                <button type="submit">Add Menu</button>
+</form>
+        </div>
+    </div>
+</div>
+</center>
+
+{% endblock %}

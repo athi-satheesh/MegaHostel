@@ -17,6 +17,10 @@ urlpatterns = [
     path('updateStudentDetail/<int:id>/', views.updateStudentDetails, name='updateStudentDetail'),
     path('deleteStudent/<int:id>/', views.deleteStudent, name="deleleStudent"),
     path('deleteParent/<int:id>/', views.deleteParent, name="deleleParent"),
+    path('manageFoodMenu', views.manageFoodMenu, name='manageFoodMenu'),
+    path('viewFoodMenu', views.viewFoodMenu, name='viewFoodMenu'),
+    path('updateFoodMenu/<int:id>/', views.updateFoodMenu, name='updateFoodMenu'),
+    path('viewFoodMenubyUser', views.viewFoodMenubyUser, name='viewFoodMenubyUser')
 ]
 
 if settings.DEBUG:

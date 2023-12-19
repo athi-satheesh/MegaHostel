@@ -1,5 +1,6 @@
 {% extends 'admin/index_admin.html' %}
 {% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <h4 style="text-align: center">LIST OF STUDENTS</h4>
@@ -16,8 +17,7 @@
         <th>Contact Number</th>
         <th>Email</th>
         <th>Emergency Contact Number</th>
-        <th>UPDATE</th>
-        <th>DELETE</th>
+        <th colspan="2">Manage</th>
     </tr>
     {% for x in data %}
     <tr>

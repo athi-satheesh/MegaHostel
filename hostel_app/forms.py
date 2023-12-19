@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
 
-from hostel_app.models import Register, User_Student, User_Parent
+from hostel_app.models import Register, User_Student, User_Parent, Weekly_Food, Notification
 
 
 # registration form
@@ -67,3 +67,54 @@ class parentRegistrationForm(forms.ModelForm):
         model = User_Parent
         fields = ('name', 'gender', 'address', 'student_reg_no', 'relationship_with_student', 'contact_number',
                   'email',)
+
+
+# manage-food
+class WeeklyFoodForm(forms.ModelForm):
+    DAY = (('initial', 'Select Day'), ('Sunday', 'Sunday'), ('Monday', 'Monday'), ('Tuesday', 'Tuesday'),
+           ('Wednesday', ' Wednesday'),
+           ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday'))
+    day = forms.ChoiceField(choices=DAY)
+
+    BMENU = (
+    ('initial', 'Select Breakfast'), ('Masala Dosa with Tea/ Coffee/ Milk', 'Masala Dosa with Tea/ Coffee/ Milk'),
+    ('Poori Masala with Tea/ Coffee/ Milk', 'Poori Masala with Tea/ Coffee/ Milk'),
+    ('Idli with Tea/ Coffee/ Milk', 'Idli with Tea/ Coffee/ Milk'),
+    ('Pooha with Tea/ Coffee/ Milk', ' Pooha with Tea/ Coffee/ Milk'),
+    ('Maggie with Tea/ Coffee/ Milk', 'Maggie with Tea/ Coffee/ Milk'),
+    ('Aloo Paratha with Tea/ Coffee/ Milk', 'Aloo Paratha with Tea/ Coffee/ Milk'),
+    ('Chapathi & Chana Masala with Tea/ Coffee/ Milk', 'Chapathi & Chana Masala with Tea/ Coffee/ Milk'),
+    ('Bread & Omlette with Tea/ Coffee/ Milk', 'Bread & Omlette with Tea/ Coffee/ Milk'),
+    ('Upma with Tea/ Coffee/ Milk', 'Upma with Tea/ Coffee/ Milk'))
+    breakfast = forms.ChoiceField(choices=BMENU)
+
+    LMENU = (
+        ('initial', 'Select Lunch'), ('Meals', 'Meals'),
+        ('Rice and Chicken Curry/ Veg Curry', 'Rice and Chicken Curry/ Veg Curry'),
+        ('Rice and Fish Fry/ Veg Curry', 'Rice and Fish Fry/ Veg Curry'),
+        ('Chicken / Veg Biryani', ' Chicken / Veg Biryani'), ('Egg / Veg Biryani', 'Egg / Veg Biryani'),
+        ('Veg Fried Rice  & Gobi Manchurian', 'Veg Fried Rice  & Gobi Manchurian'),
+        ('Ghee Rice & Chicken Curry / Veg Curry', 'Ghee Rice & Chicken Curry / Veg Curry'),
+        ('Rice & Aloo', 'Rice & Aloo'), ('Rice & Fish Curry/ Veg Curry', 'Rice & Fish Curry/ Veg Curry'))
+    lunch = forms.ChoiceField(choices=LMENU)
+
+    DMENU = (
+        ('initial', 'Select Dinner'), ('Chapati and Vegetable Curry', 'Chapati and Vegetable Curry'),
+        ('Chapati and Chicken Curry/ Veg Curry', 'Chapati and Chicken Curry/ Veg Curry'),
+        ('Chapati and Veg Curry', 'Chapati and Veg Curry'),
+        ('Chicken / Veg Biryani', ' Chicken / Veg Biryani'), ('Egg / Veg Biryani', 'Egg / Veg Biryani'),
+        ('Veg Fried Rice  & Gobi Manchurian', 'Veg Fried Rice  & Gobi Manchurian'),
+        ('Batura & Chicken Curry / Veg Curry', 'Batura & Chicken Curry / Veg Curry'),
+        ('Chapati & Aloo', 'Chapati & Aloo'),
+        ('Chapati & Fish Fry/ Veg Curry', 'Chapati & Fish Fry/ Veg Curry'))
+    dinner = forms.ChoiceField(choices=DMENU)
+
+    class Meta:
+        model = Weekly_Food
+        fields = ('day', 'breakfast', 'lunch', 'dinner',)
+
+
+class NotificationForm(forms.ModelForm):
+    class Meta:
+        model = Notification
+        fields = ('date', 'notification')

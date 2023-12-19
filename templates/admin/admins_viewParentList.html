@@ -1,5 +1,6 @@
 {% extends 'admin/index_admin.html' %}
 {% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <h4 style="text-align: center">LIST OF PARENTS</h4>
@@ -13,7 +14,7 @@
         <th>Address</th>
         <th>Contact Number</th>
         <th>Email</th>
-        <th>DELETE</th>
+        <th>Manage</th>
     </tr>
     {% for x in data %}
     <tr>

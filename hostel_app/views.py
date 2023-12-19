@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from hostel_app.forms import RegistrationForm, studentRegistrationForm, parentRegistrationForm
-from hostel_app.models import User_Student, User_Parent, Register
+from hostel_app.forms import RegistrationForm, studentRegistrationForm, parentRegistrationForm, WeeklyFoodForm
+from hostel_app.models import User_Student, User_Parent, Register, Weekly_Food
 
 
 # Create your views here.
@@ -29,6 +29,7 @@ def stud_register(request):
             reg = stud_reg_form.save(commit=False)
             reg.user = stud_reg
             reg.save()
+            return redirect('login1')
     return render(request, "student/student_RegistrationForm.html", {'reg_form': reg_form, 'stud_form': stud_reg_form})
 
 
@@ -46,6 +47,7 @@ def parent_register(request):
             reg = parent_reg_form.save(commit=False)
             reg.user = parent_reg
             reg.save()
+            return redirect('login1')
     return render(request, "parent/parent_RegistrationForm.html",
                   {'reg_form': reg_form, 'parent_form': parent_reg_form})
 
@@ -96,7 +98,7 @@ def updateStudentDetails(request, id):
     stud_data = User_Student.objects.get(id=id)
     stud_reg_form = studentRegistrationForm(instance=stud_data)
     if request.method == "POST":
-        stud_reg_form1 = studentRegistrationForm(request.POST,request.FILES, instance=stud_data)
+        stud_reg_form1 = studentRegistrationForm(request.POST, request.FILES, instance=stud_data)
         if stud_reg_form1.is_valid():
             stud_reg_form1.save()
             return redirect('viewStudList')
@@ -107,7 +109,7 @@ def updateStudentDetails(request, id):
 def deleteStudent(request, id):
     if request.method == 'POST':
         delt = User_Student.objects.get(id=id)
-        user_detail=delt.user
+        user_detail = delt.user
         delt.delete()
         user_detail.delete()
         return redirect("viewStudList")
@@ -123,3 +125,39 @@ def deleteParent(request, id):
         user_detail.delete()
         return redirect("viewParentList")
     return render(request, "admin/admins_viewParentList.html")
+
+
+# manage_weekly_food_menu_by-admin
+def manageFoodMenu(request):
+    food_form = WeeklyFoodForm()
+    if request.method == 'POST':
+        food_form = WeeklyFoodForm(request.POST)
+        if food_form.is_valid():
+            food_form1 = food_form.save(commit=False)
+            food_form1.save()
+            return redirect('viewFoodMenu')
+    return render(request, "admin/Register_FoodMenu.html",
+                  {'food_form': food_form})
+
+
+def viewFoodMenu(request):
+    data = Weekly_Food.objects.all().order_by('id').values()
+    return render(request, "admin/admins_ViewFoodMenu.html", {'data': data})
+
+
+def updateFoodMenu(request, id):
+    food_data = Weekly_Food.objects.get(id=id)
+    food_form = WeeklyFoodForm(instance=food_data)
+    if request.method == "POST":
+        food_form1 = WeeklyFoodForm(request.POST, instance=food_data)
+        if food_form1.is_valid():
+            food_form1.save()
+            return redirect('viewFoodMenu')
+    return render(request, "admin/updateFoodMEnu.html", {'food_form': food_form})
+
+
+# to-view-food-menu-by-student-and-parent
+def viewFoodMenubyUser(request):
+    data = Weekly_Food.objects.all().order_by('id').values()
+    return render(request, "student/viewWeeklyFoodMenu.html", {'data': data})
+

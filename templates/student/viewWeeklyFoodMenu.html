@@ -1,0 +1,22 @@
+{% extends 'admin/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h4 style="text-align: center">WEEKLY FOOD MENU</h4>
+<div class="container-fluid">
+    <div class="row">
+      {% for x in data %}
+        <div class="col-md-4 mb-4">
+          <div class="card text-black bg-warning mb-3">
+            <div class="card-body">
+              <h5 class="card-title" style="color:black; text-align:center;">{{ x.day }}</h5>
+              <p class="card-text"><strong>Breakfast:</strong> {{ x.breakfast }}</p>
+              <p class="card-text"><strong>Lunch:</strong> {{ x.lunch }}</p>
+              <p class="card-text"><strong>Dinner:</strong> {{ x.dinner }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

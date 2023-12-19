@@ -24,7 +24,7 @@ class User_Student(models.Model):
     emergency_contact_number = models.CharField(max_length=10)
     photo = models.FileField(upload_to='documents/')
 
-    #inorder_to_return_register_number_of_student_in_parent_registration_form_as_dropdown
+    # inorder_to_return_register_number_of_student_in_parent_registration_form_as_dropdown
     def __str__(self):
         return f'{self.reg_no} {self.name}'
 
@@ -35,7 +35,21 @@ class User_Parent(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
     address = models.TextField(max_length=150)
-    student_reg_no = models.ForeignKey('User_Student', on_delete=models.DO_NOTHING) #connecting_student_and_parent_via_reg_num
+    student_reg_no = models.ForeignKey('User_Student',
+                                       on_delete=models.DO_NOTHING)  # connecting_student_and_parent_via_reg_num
     relationship_with_student = models.CharField(max_length=10)
     contact_number = models.CharField(max_length=10)
     email = models.EmailField()
+
+
+# Food-manage-model
+class Weekly_Food(models.Model):
+    day = models.CharField(max_length=10)
+    breakfast = models.CharField(max_length=100)
+    lunch = models.CharField(max_length=100)
+    dinner = models.CharField(max_length=100)
+
+
+class Notification(models.Model):
+    date = models.DateTimeField()
+    notification = models.CharField(max_length=150)
