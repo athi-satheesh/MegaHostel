@@ -1,0 +1,29 @@
+{% extends 'student/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div>
+<h4 style="text-align: center">YOUR FEEDBACKS</h4><br>
+</div>
+<table class="table table-bordered table-sm " style="text-align: center">
+    <tr>
+        <th>Date</th>
+        <th>Subject</th>
+        <th>Reply from Hostel Admin</th>
+    </tr>
+    {% for x in data1 %}
+    <tr>
+        <td>{{ x.date }}</td>
+        <td>{{ x.subject }}</td>
+        <td>
+{% if x.reply == none %}
+            NO REPLY
+            {% else %}
+            {{x.reply}}
+            {% endif %} </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

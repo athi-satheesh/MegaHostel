@@ -1,0 +1,27 @@
+{% extends 'admin/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h4 style="text-align: center">NOTIFICATIONS</h4>
+
+<table class="table table-bordered table-sm " style="text-align: center">
+    <tr>
+        <th>Date</th>
+        <th>Details</th>
+        <th>Manage</th>
+    </tr>
+    {% for x in data1 %}
+    <tr>
+        <td>{{ x.date_of_information }}</td>
+        <td>{{ x.details }}</td>
+         <td><form action="{% url 'deleteNotification' x.id %}" method="POST" class="d-inline-block" >
+            {% csrf_token %}
+            <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+        </form> </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

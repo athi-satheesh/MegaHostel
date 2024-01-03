@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
-from hostel_app.forms import RegistrationForm, studentRegistrationForm, parentRegistrationForm, WeeklyFoodForm
-from hostel_app.models import User_Student, User_Parent, Register, Weekly_Food
+from hostel_app.forms import RegistrationForm, studentRegistrationForm, parentRegistrationForm, WeeklyFoodForm, \
+    NotificationForm, FeedbackForm, ReplyFeedbackForm
+from hostel_app.models import User_Student, User_Parent, Register, Weekly_Food, Notification, Feedback
 
 
 # Create your views here.
@@ -136,8 +137,7 @@ def manageFoodMenu(request):
             food_form1 = food_form.save(commit=False)
             food_form1.save()
             return redirect('viewFoodMenu')
-    return render(request, "admin/Register_FoodMenu.html",
-                  {'food_form': food_form})
+    return render(request, "admin/Register_FoodMenu.html", {'food_form': food_form})
 
 
 def viewFoodMenu(request):
@@ -161,3 +161,69 @@ def viewFoodMenubyUser(request):
     data = Weekly_Food.objects.all().order_by('id').values()
     return render(request, "student/viewWeeklyFoodMenu.html", {'data': data})
 
+
+# to-create-notification-by-admin
+def manageNotification(request):
+    notification_form = NotificationForm()
+    if request.method == 'POST':
+        notification_form = NotificationForm(request.POST)
+        if notification_form.is_valid():
+            notification_form1 = notification_form.save(commit=False)
+            notification_form1.save()
+            return redirect('viewNotification')
+    return render(request, "admin/add_notification.html",
+                  {'notification_form': notification_form})
+
+
+# to-view-notifications-created
+def viewNotificationByAdmin(request):
+    data1 = Notification.objects.all().order_by('id').values()
+    return render(request, "admin/viewNotification.html", {'data1': data1})
+
+
+def deleteNotification(request, id):
+    if request.method == 'POST':
+        delt = Notification.objects.get(id=id)
+        delt.delete()
+        return redirect("viewNotification")
+    return render(request, "admin/viewNotification.html.html")
+
+
+# def viewNotificationByUser(request):
+#     data1 = Notification.objects.all().order_by('id').values()
+#     return render(request, "admin/viewNotification.html", {'data1': data1})
+
+def giveFeedback(request):
+    feedback_form = FeedbackForm()
+    student = request.user
+    if request.method == "POST":
+        feedback_form = FeedbackForm(request.POST)
+        if feedback_form.is_valid():
+            feedback_form1 = feedback_form.save(commit=False)
+            feedback_form1.user = student
+            feedback_form1.save()
+            return redirect('giveFeedback')
+    return render(request, "student/giveFeedback.html", {'feedback_form': feedback_form})
+
+
+def viewFeedback(request):
+    data1 = Feedback.objects.filter(user=request.user).order_by('-date')
+    return render(request, "student/viewFeedback.html", {'data1': data1})
+
+
+def viewFeedbackByAdmin(request):
+    data1 = Feedback.objects.all()
+    return render(request, "admin/viewFeedbackByAdmin.html", {'data1': data1})
+
+
+def replytoFeedback(request):
+    ReplyFeedbackForm1 = ReplyFeedbackForm()
+    student = request.user
+    if request.method == "POST":
+        ReplyFeedbackForm2 = ReplyFeedbackForm(request.POST)
+        if ReplyFeedbackForm.is_valid():
+            ReplyFeedbackForm2 = ReplyFeedbackForm.save(commit=False)
+            ReplyFeedbackForm2.user = student
+            ReplyFeedbackForm2.save()
+            return redirect('giveFeedback')
+    return render(request, "admin/replyFeedback.html", {'ReplyFeedbackForm': ReplyFeedbackForm1})

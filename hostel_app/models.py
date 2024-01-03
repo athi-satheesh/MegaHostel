@@ -50,6 +50,15 @@ class Weekly_Food(models.Model):
     dinner = models.CharField(max_length=100)
 
 
+# Make_Notifications
 class Notification(models.Model):
-    date = models.DateTimeField()
-    notification = models.CharField(max_length=150)
+    date_of_information = models.DateField(auto_now=True)
+    details = models.CharField(max_length=150)
+
+
+# Feedback-model-by-student
+class Feedback(models.Model):
+    user = models.ForeignKey('Register', on_delete=models.CASCADE)
+    subject = models.TextField()
+    date = models.DateField(auto_now=True)
+    reply = models.TextField(null=True, blank=True)

@@ -20,7 +20,14 @@ urlpatterns = [
     path('manageFoodMenu', views.manageFoodMenu, name='manageFoodMenu'),
     path('viewFoodMenu', views.viewFoodMenu, name='viewFoodMenu'),
     path('updateFoodMenu/<int:id>/', views.updateFoodMenu, name='updateFoodMenu'),
-    path('viewFoodMenubyUser', views.viewFoodMenubyUser, name='viewFoodMenubyUser')
+    path('viewFoodMenubyUser', views.viewFoodMenubyUser, name='viewFoodMenubyUser'),
+    path('manageNotification', views.manageNotification, name='manageNotification'),
+    path('viewNotification', views.viewNotificationByAdmin, name="viewNotification"),
+    path('deleteNotification/<int:id>/', views.deleteNotification, name="deleteNotification"),
+    path('giveFeedback', views.giveFeedback, name="giveFeedback"),
+    path('viewFeedback', views.viewFeedback, name="viewFeedback"),
+    path('viewFeedbackByAdmin', views.viewFeedbackByAdmin, name="viewFeedbackByAdmin"),
+    path('reply_toFeedback', views.replytoFeedback, name="reply_toFeedback"),
 ]
 
 if settings.DEBUG:

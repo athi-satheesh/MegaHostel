@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
 
-from hostel_app.models import Register, User_Student, User_Parent, Weekly_Food, Notification
+from hostel_app.models import Register, User_Student, User_Parent, Weekly_Food, Notification, Feedback
 
 
 # registration form
@@ -77,15 +77,15 @@ class WeeklyFoodForm(forms.ModelForm):
     day = forms.ChoiceField(choices=DAY)
 
     BMENU = (
-    ('initial', 'Select Breakfast'), ('Masala Dosa with Tea/ Coffee/ Milk', 'Masala Dosa with Tea/ Coffee/ Milk'),
-    ('Poori Masala with Tea/ Coffee/ Milk', 'Poori Masala with Tea/ Coffee/ Milk'),
-    ('Idli with Tea/ Coffee/ Milk', 'Idli with Tea/ Coffee/ Milk'),
-    ('Pooha with Tea/ Coffee/ Milk', ' Pooha with Tea/ Coffee/ Milk'),
-    ('Maggie with Tea/ Coffee/ Milk', 'Maggie with Tea/ Coffee/ Milk'),
-    ('Aloo Paratha with Tea/ Coffee/ Milk', 'Aloo Paratha with Tea/ Coffee/ Milk'),
-    ('Chapathi & Chana Masala with Tea/ Coffee/ Milk', 'Chapathi & Chana Masala with Tea/ Coffee/ Milk'),
-    ('Bread & Omlette with Tea/ Coffee/ Milk', 'Bread & Omlette with Tea/ Coffee/ Milk'),
-    ('Upma with Tea/ Coffee/ Milk', 'Upma with Tea/ Coffee/ Milk'))
+        ('initial', 'Select Breakfast'), ('Masala Dosa with Tea/ Coffee/ Milk', 'Masala Dosa with Tea/ Coffee/ Milk'),
+        ('Poori Masala with Tea/ Coffee/ Milk', 'Poori Masala with Tea/ Coffee/ Milk'),
+        ('Idli with Tea/ Coffee/ Milk', 'Idli with Tea/ Coffee/ Milk'),
+        ('Pooha with Tea/ Coffee/ Milk', ' Pooha with Tea/ Coffee/ Milk'),
+        ('Maggie with Tea/ Coffee/ Milk', 'Maggie with Tea/ Coffee/ Milk'),
+        ('Aloo Paratha with Tea/ Coffee/ Milk', 'Aloo Paratha with Tea/ Coffee/ Milk'),
+        ('Chapathi & Chana Masala with Tea/ Coffee/ Milk', 'Chapathi & Chana Masala with Tea/ Coffee/ Milk'),
+        ('Bread & Omlette with Tea/ Coffee/ Milk', 'Bread & Omlette with Tea/ Coffee/ Milk'),
+        ('Upma with Tea/ Coffee/ Milk', 'Upma with Tea/ Coffee/ Milk'))
     breakfast = forms.ChoiceField(choices=BMENU)
 
     LMENU = (
@@ -117,4 +117,16 @@ class WeeklyFoodForm(forms.ModelForm):
 class NotificationForm(forms.ModelForm):
     class Meta:
         model = Notification
-        fields = ('date', 'notification')
+        fields = ('details',)
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ("subject",)
+
+
+class ReplyFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ("reply",)

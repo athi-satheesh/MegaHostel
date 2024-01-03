@@ -102,6 +102,22 @@
           </li>
 
 
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Feedback</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic1">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'giveFeedback' %}">Give Feedback</a></li>
+                <li class="nav-item"> <a class="nav-link" href=" {% url 'viewFeedback' %} ">View Your Feedback</a></li>
+              </ul>
+            </div>
+          </li>
+
 
           <li class="nav-item menu-items">
             <a class="nav-link" href=" {% static 'pages/forms/basic_elements.html' %} ">
@@ -136,11 +152,11 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
+            <a class="nav-link" href="{% url 'giveFeedback' %}">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title">Documentation</span>
+              <span class="menu-title">Feedback</span>
             </a>
           </li>
         </ul>
@@ -298,10 +314,13 @@
 
 
         <!-- partial -->
-        <div class="main-panel">
+          <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
-              <div class="col-12 grid-margin stretch-card">
+              <div class="col-12 grid-margin">
+                <div class="card">
+              <div class="card-body">
+            <div class="table-responsive">
 
 
 
@@ -311,11 +330,13 @@
               {% block content %}
                 {% endblock %}
 
-
+ </div>
+              </div>
+              </div>
+              </div>
               </div>
               </div>
             </div>
-        </div>
           <!-- content-wrapper ends -->
 
 

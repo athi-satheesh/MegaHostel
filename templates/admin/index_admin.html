@@ -138,11 +138,27 @@
           </li>
 
           <li class="nav-item menu-items">
-            <a class="nav-link" href=" {% static 'pages/tables/basic-table.html' %} ">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Notifications</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic3">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% url 'manageNotification' %}">Create Notifications</a></li>
+                <li class="nav-item"> <a class="nav-link" href=" {% url 'viewNotification' %} ">View Notifications</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a class="nav-link" href=" {% url 'viewFeedbackByAdmin' %} ">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
               </span>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Feedback</span>
             </a>
           </li>
           <li class="nav-item menu-items">
