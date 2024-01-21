@@ -1,4 +1,4 @@
-{% extends 'student/index_admin.html' %}
+{% extends 'admin/index_admin.html' %}
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -8,14 +8,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-<form method="POST">
-                {% csrf_token %}
-                {{ReplyFeedbackForm|crispy}}
-                <button type="submit">Submit</button>
-</form>
+            <h1 class="text-center display-4">Reply to Feedback</h1>
         </div>
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+                {{ feedback_form|crispy }}
+        <button type="submit" class="btn btn-info">Reply</button>
+                </form>
+    </div>
     </div>
 </div>
-</center>
+        </div>
 
 {% endblock %}

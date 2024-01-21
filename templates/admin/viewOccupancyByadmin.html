@@ -1,0 +1,33 @@
+{% extends 'admin/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h4 style="text-align: center">ROOM OCCUPANCY</h4>
+
+<table class="table table-bordered table-sm " style="text-align: center">
+    <tr>
+        <th>Room Number</th>
+        <th>Bed-1</th>
+        <th>Bed-2</th>
+        <th>Bed-3</th>
+        <th colspan="2">Manage Bed Availability</th>
+    </tr>
+    {% for x in data1 %}
+    <tr>
+        <td>{{ x.room_no }}</td>
+        <td>{{ x.student1 }}</td>
+        <td>{{ x.student2 }}</td>
+        <td>{{ x.student3 }}</td>
+         <td> <form method="POST" action="{% url 'updateOccupancy' x.id %}" >
+                {% csrf_token %}
+                {{ room_form|crispy }}
+             <input type="submit" class="btn btn-outline-primary" value="Update"/>
+            </form>
+         </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

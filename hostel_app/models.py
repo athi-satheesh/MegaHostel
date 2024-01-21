@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import BooleanField
+from django.utils import timezone
 
 
 # Create your models here.
@@ -62,3 +63,26 @@ class Feedback(models.Model):
     subject = models.TextField()
     date = models.DateField(auto_now=True)
     reply = models.TextField(null=True, blank=True)
+
+
+# creating-new-room-by-admin
+class CreateRoom(models.Model):
+    student1 = models.ForeignKey('User_Student', on_delete=models.DO_NOTHING, related_name='student_1')
+    student2 = models.ForeignKey('User_Student', on_delete=models.DO_NOTHING, related_name='student_2')
+    student3 = models.ForeignKey('User_Student', on_delete=models.DO_NOTHING, related_name='student_3')
+    room_no = models.CharField(max_length=10)
+
+
+# creating-vacancy-of-bed-for-students-by-admin
+class Vacancy(models.Model):
+    number_of_bed_vacancy = models.IntegerField()
+
+
+class BookBedAppointment(models.Model):
+    name = models.ForeignKey('User_Student', on_delete=models.CASCADE)
+    number_of_bed_vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE)
+    status = models.IntegerField(default=0)
+
+
+
+

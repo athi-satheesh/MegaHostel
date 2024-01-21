@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'hostel_app.context_processors.viewNotificationByUser'
             ],
         },
     },
@@ -93,7 +94,7 @@ WSGI_APPLICATION = 'HostelManagmentSystem.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "hostelManagment",
+        "NAME": "new_hostel_db",
         "USER": "postgres",
         "PASSWORD": "1234",
         "HOST": "LOCALHOST",

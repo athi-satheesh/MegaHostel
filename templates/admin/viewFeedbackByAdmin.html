@@ -10,19 +10,22 @@
         <th>Date</th>
         <th>Student</th>
         <th>Subject</th>
-        <th>Post your Reply</th>
+        <th>Reply</th>
     </tr>
     {% for x in data1 %}
     <tr>
         <td>{{ x.date }}</td>
         <td>{{x.user}}</td>
         <td>{{ x.subject }}</td>
-        <td>
-              <a class="btn btn-info" href="{% url 'reply_toFeedback' %}">
-      Reply
-    </a>
-
- </td>
+        <td>{% if x.reply == None or x.reply == "" %}
+            <form action="{% url 'replytoFeedback' x.id %}" method="POST" class="d-inline-block" >
+            {% csrf_token %}
+            <input type="submit" class="btn btn-info" value="Post Your Reply">
+        </form>
+        {% else %}
+            {{x.reply}}
+            {% endif %}
+        </td>
 
     </tr>
     {% endfor %}

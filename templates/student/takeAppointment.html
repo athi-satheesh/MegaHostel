@@ -1,0 +1,32 @@
+{% extends 'student/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div>
+<h4 style="text-align: center">BOOK NOW</h4><br>
+</div>
+<div class="col-lg-8">
+    <div class="card">
+        <div class="card-header"><strong>Book Vacant Bed</strong></div>
+        <div class="card-body card-block">
+            <form method="post">{% csrf_token %}
+                <div class="form-group">
+                    <label class=" form-control-label">Vacancy Available</label>
+                    <input  class="form-control" Value="{{vacancy.number_of_bed_vacancy}}">
+                </div>
+
+                <div class="form-actions form-group ">
+                    <button type="submit" class="btn btn-primary btn-sm">Book</button>
+                </div>
+                {% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

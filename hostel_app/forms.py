@@ -4,7 +4,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
 
-from hostel_app.models import Register, User_Student, User_Parent, Weekly_Food, Notification, Feedback
+from hostel_app.models import Register, User_Student, User_Parent, Weekly_Food, Notification, Feedback, CreateRoom, \
+    Vacancy, BookBedAppointment
 
 
 # registration form
@@ -129,4 +130,22 @@ class FeedbackForm(forms.ModelForm):
 class ReplyFeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ("reply",)
+        fields = ("subject", "reply",)
+
+
+class CreateRoomForm(forms.ModelForm):
+    class Meta:
+        model = CreateRoom
+        fields = ("room_no", "student1", "student2", "student3",)
+
+
+class VacancyForm(forms.ModelForm):
+    class Meta:
+        model = Vacancy
+        fields = ("number_of_bed_vacancy",)
+
+
+class BookBedForm(forms.ModelForm):
+    class Meta:
+        model = BookBedAppointment
+        fields = ("name", "number_of_bed_vacancy", "status",)

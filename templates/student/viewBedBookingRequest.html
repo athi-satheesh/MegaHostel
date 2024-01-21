@@ -1,0 +1,31 @@
+{% extends 'student/index_admin.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div>
+<h4 style="text-align: center">YOUR REQUESTS FOR BED</h4><br>
+</div>
+<table class="table table-bordered table-sm " style="text-align: center">
+    <tr>
+        <th>Vacancy</th>
+        <th>Status</th>
+    </tr>
+     {% for x in data1 %}
+    <tr>
+        <td>{{ x.number_of_bed_vacancy.number_of_bed_vacancy}}</td>
+        <td>{% if x.status ==0 %}
+        <span>Pending</span>
+        { % elif x.status==1 %}
+            <span>Approved</span>
+            { % else %}
+            <span>Rejected</span>
+             {% endif %}
+        </td>
+
+    </tr>
+     {% endfor %}
+</table><br>
+<center>
+<p>{{ message }}</p>
+    </center>
+{% endblock %}
